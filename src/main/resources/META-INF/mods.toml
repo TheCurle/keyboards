@@ -1,0 +1,24 @@
+modLoader="javafml" #mandatory
+loaderVersion="[37,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+license="MIT"
+[[mods]] #mandatory
+modId="keyboards" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Keyboards" #mandatory
+credits="jriwanek for the idea." #optional
+authors="Curle" #optional
+description='''
+Play us away, Keyboard Cat!
+'''
+[[dependencies.keyboards]] #optional
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[37,)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.keyboards]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.17.1,1.18)"
+    ordering="NONE"
+    side="BOTH"
