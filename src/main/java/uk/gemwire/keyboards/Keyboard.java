@@ -72,21 +72,25 @@ public class Keyboard extends Block {
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
-        // On the client..
-        // TODO
+        // This is meant to only fire on the server, but we have to be certain
+        if(level.isClientSide()) return;
+
+        ServerPlayer player;
 
         // If there's a cat above us
-        if (!(entity instanceof Cat cat)) return;
-        if (!(pos.equals(new BlockPos(cat.position())))) return;
-        // With a Player owner
-        LivingEntity owner = cat.getOwner();
-        if (!(owner instanceof ServerPlayer player)) return;
-
-        // And the player has chat enabled
-        //if (!(Minecraft.getInstance().getChatStatus() == Minecraft.ChatStatus.ENABLED)) return;
-
-        // And the player isn't currently in the chat box
-        //if (Minecraft.getInstance().screen instanceof ChatScreen) return;
+        if ((entity instanceof Cat cat)) {
+            if (!(pos.equals(new BlockPos(cat.position())))) return;
+            // With a Player owner
+            LivingEntity owner = cat.getOwner();
+            if (!(owner instanceof ServerPlayer p)) return; // i wish you could assign to an existing variable with pattern instanceof
+            player = p;
+            // Or a player above us
+        } else if ((entity instanceof ServerPlayer p)) {
+            player = p;
+            // Otherwise, stop
+        } else {
+            return;
+        }
 
         // And the user is particularly unlucky
         if (level.getRandom().nextInt(10000) > 2) return;
